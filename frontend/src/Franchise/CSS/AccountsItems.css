@@ -1,0 +1,154 @@
+/* AccountsItems.css */
+.accountsItems {
+  background-color: #ebebeb77;
+  border-radius: 20px;
+  padding: 2rem;
+  .accountsItems {
+    max-width: 1400px;
+    margin: auto;
+  }
+
+  .main-title {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+
+  .main-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    border-radius: 4px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    background: #ffffff;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 1.8rem;
+    align-items: center;
+    border-left: 6px solid #2575fc;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+  }
+
+  li img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 3px solid #eee;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    font-size: 0.9rem;
+    color: #34495e;
+  }
+
+  .info p {
+    margin: 0;
+    flex: 1 1 220px;
+  }
+
+  .info p strong {
+    font-weight: 600;
+    color: #1f2d3d;
+  }
+
+  .status-pill {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    font-weight: 600;
+    background-color: #f1f7ff;
+    color: #2962ff;
+    border: 1px solid #cfe0fc;
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: flex-end;
+  }
+
+  button {
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.4px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  button:first-of-type {
+    background: linear-gradient(135deg, #065b22, #065b22);
+    color: #fff;
+  }
+
+  button:last-of-type {
+    background: linear-gradient(135deg, #b10731, #b10731);
+    color: #fff;
+  }
+
+  button:hover {
+    transform: scale(1.03);
+    opacity: 0.92;
+  }
+
+  @media (max-width: 768px) {
+    li {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 1.2rem;
+    }
+
+    li img {
+      margin: 0 auto;
+    }
+
+    .info {
+      justify-content: center;
+    }
+
+    .actions {
+      flex-direction: row;
+      justify-content: center;
+      gap: 1rem;
+    }
+  }
+}

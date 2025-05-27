@@ -1,0 +1,77 @@
+.studentJoinStatus-loading {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+  }
+  
+  .studentJoinStatus-error {
+    text-align: center;
+    font-size: 1.2em;
+    color: red;
+  }
+  
+  .studentJoinStatus-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+  }
+  
+  .studentJoinStatus-th,
+  .studentJoinStatus-td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .studentJoinStatus-th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .studentJoinStatus-tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .studentJoinStatus-joined {
+    color: green;
+  }
+  
+  .studentJoinStatus-notJoined {
+    color: red;
+  }
+  
+  .studentJoinStatus-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .studentJoinStatus-button:hover {
+    background-color: #0056b3;
+  }
+  .studentJoinStatus-counts {
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  .studentJoinStatus-counts p {
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .studentJoinStatus-filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .studentJoinStatus-filter {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }

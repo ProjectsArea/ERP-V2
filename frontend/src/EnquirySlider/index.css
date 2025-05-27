@@ -1,0 +1,34 @@
+.enquiry-slider-container {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .enquiry-slider {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .enquiry-card {
+    flex: 0 0 33.33%;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    margin-right: 20px;
+  }
+  
+  .enquiry-card:last-child {
+    margin-right: 0;
+  }
+  
+  .enquiry-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+  }
+  
+  .enquiry-card-count {
+    font-size: 16px;
+    color: black;
+  }
+  

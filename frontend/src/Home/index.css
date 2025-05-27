@@ -1,0 +1,70 @@
+@media  (min-width: 700px){
+    .home-page-body{
+        height: 70vh;
+        margin: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .center-name-card{
+        margin: 20px;
+        width: 250px;
+        text-align: center;
+        padding: 20px;
+        border:0.5px solid rgb(150, 150, 143);
+        border-radius: 9px;
+        font-family: "Roboto";
+        font-size: 28px;
+        font-weight: 700;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        -ms-border-radius: 9px;
+        -o-border-radius: 9px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .center-name-card:hover{
+        background-color:#e8e7bc;
+        cursor: pointer;
+    }
+    .icon{
+        font-size: 50px;
+        margin-bottom: 20px;
+    }
+    h1{
+        text-decoration: none;
+    }
+}
+@media (max-width: 700px){
+    .home-page-body{
+        height: 120vh;
+        margin: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .center-name-card{
+        width: 200px;
+        text-align: center;
+        padding: 20px;
+        border:0.5px solid rgb(150, 150, 143);
+        border-radius: 9px;
+        font-family: "Roboto";
+        font-size: 18px;
+        font-weight: 700;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        -ms-border-radius: 9px;
+        -o-border-radius: 9px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .center-name-card:hover{
+        background-color:#e8e7bc;
+        cursor: pointer;
+    }
+    .icon{
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+}

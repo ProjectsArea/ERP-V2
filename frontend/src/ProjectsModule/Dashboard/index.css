@@ -1,0 +1,164 @@
+/* Main Dashboard Container */
+.project-dashboard {
+    width: 100%;
+    padding: 20px;
+
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Stat Boxes */
+  .project-dashboard__stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .project-dashboard__stat-box {
+    flex: 1;
+    margin-right: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .project-dashboard__stat-box:last-child {
+    margin-right: 0;
+  }
+  
+  /* Filters */
+  .project-dashboard__filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .project-dashboard__filters select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+  }
+  
+  /* Project Categories Table and Bar Graph */
+  .project-dashboard__councillor-projects {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  .project-dashboard__bar-graph {
+    width: 75%;
+    padding: 10px;
+  }
+  
+  .project-dashboard__categories {
+    width: 25%;
+    padding: 10px;
+    overflow-x: auto; /* In case the table overflows */
+  }
+  
+  .project-dashboard__categories table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .project-dashboard__categories th, .project-dashboard__categories td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .project-dashboard__categories th {
+    background-color: #f4f4f4;
+  }
+  
+  .project-dashboard__guide-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  .project-dashboard__guide-status-filter {
+    margin-bottom: 20px;
+  }
+  
+  .project-dashboard__guide-status-chart {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+  }
+  
+  
+  /* Pie Chart for Amounts */
+  .project-dashboard__amounts {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .project-dashboard__amounts canvas {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+  }
+  
+  /* Bar Chart for Guide Projects */
+  .project-dashboard__guides {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .project-dashboard__guides canvas {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+  }
+  
+  /* Pie Chart for Guide's Project Status */
+  .project-dashboard__guide-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 400px; /* Adjust height as needed */
+    margin: 20px 0;
+  }
+  
+  .project-dashboard__guide-status-filter {
+    margin-bottom: 20px;
+    padding: 20px;
+  }
+  
+  .project-dashboard__guide-status-chart {
+    width: 100%;
+    max-width: 1500px;
+    height: 300px;
+  }
+  
+  .project-dashboard__guide-status-chart canvas {
+    border-radius: 50%; /* For round edges */
+  }
+  
+  
+  /* Line Chart for Fees Collection Over Time */
+  .project-dashboard__fees-timeline {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .project-dashboard__fees-timeline canvas {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+  }
+  

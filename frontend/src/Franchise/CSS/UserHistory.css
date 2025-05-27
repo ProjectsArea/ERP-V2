@@ -1,0 +1,109 @@
+.history-container {
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #f8f9fa, #e0f7fa);
+  border-radius: 10px;
+  max-width: 1000px;
+  margin: auto;
+  margin-top: -20px;
+}
+
+.history-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.empty-msg {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.order-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  font-size: 13px;
+  color: #444;
+  display: flex;
+  flex-direction: column; /* ⬅ ensures items stack */
+  align-items: flex-start;
+  p {
+    margin-top: -20px;
+  }
+  h4 {
+    margin-bottom: 20px;
+  }
+}
+
+.order-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.order-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.order-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.status {
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.status.completed {
+  color: #2ecc71;
+  font-size: 13px;
+}
+
+.status.verified {
+  color: #2667a8;
+  font-size: 13px;
+}
+
+.status.rejected {
+  background-color: red;
+  color: white;
+  font-size: 13px;
+}
+
+.status.delivered {
+  color: #fff;
+  background-color: #2ecc71;
+}
+
+.status.ordered {
+  color: #fff;
+  background-color: #b2cc2e;
+}
+
+.status.progress{
+  color: #fff;
+  background-color: #2667a8;
+  display: inline;
+}

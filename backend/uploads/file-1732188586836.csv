@@ -1,0 +1,3 @@
+place,date,name,address,background,collegeSchool,mobile,email,dob,aadhar,coursePreferred,timePreferred,source,courseFee,counselorName,centerName,status,remarks
+Vizag,2024-11-21,John Doe,123 Main Street,student,XYZ College,9876543210,johndoe@example.com,2000-01-01,123456789012,JavaScript,morning,friends,5000,Jane Counselor,GWK,notJoined,Interested in advanced topics
+Hyderabad,2024-11-20,Jane Smith,456 Elm Street,service,ABC University,9123456780,janesmith@example.com,1995-05-15,987654321098,Python,evening,telecalling,6000,John Counselor,DWK,joined,Wants weekend classes

@@ -1,0 +1,45 @@
+version: '3'
+services:
+  # MongoDB service
+  mongo:
+    # Use the official MongoDB Docker image
+    image: mongo
+    container_name: mongo
+    # Expose port 27017 for MongoDB
+    ports:
+      - "27017:27017"
+    # Create a named volume for persisting MongoDB data
+    volumes:
+      - mongo-data:/data/db
+
+  # Backend (server) service
+  server:
+    # Build the backend server using the Dockerfile in the './server' directory
+    build: ./backend
+    container_name: server
+    # Expose port 5000 for the backend server
+    ports:
+      - "5000:5000"
+    # Specify dependencies, so 'mongo' service starts before 'server'
+    depends_on:
+      - mongo
+    # Set environment variable for MongoDB connection URI
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/datapro
+
+  # Frontend (client) service
+  client:
+    # Build the frontend client using the Dockerfile in the './client' directory
+    build: ./frontend
+    container_name: client
+    # Expose port 80 for the frontend client
+    ports:
+      - "80:3000"
+    # Specify dependency on 'server', so 'server' starts before 'client'
+    depends_on:
+      - server
+
+# Define named volumes
+volumes:
+  # Named volume for persisting MongoDB data
+  mongo-data:

@@ -1,0 +1,122 @@
+.user-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.select-container {
+  margin-bottom: 20px;
+}
+
+.select-option {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.input-container {
+  margin-bottom: 20px;
+  width: 300px;
+  margin-left: 100px;
+}
+
+.input-field {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 500px;
+}
+
+.button-container {
+  margin-bottom: 20px;
+}
+
+.fetch-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.fetch-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.fetch-button:hover:enabled {
+  background-color: #0056b3;
+}
+
+.table-container {
+  margin-top: 20px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.user-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-details-table th, .user-details-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.user-details-table th {
+  background-color: #f4f4f4;
+}
+
+.user-details-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.user-details-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.user-details-table button {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+.user-details-table button:first-child {
+  background-color: #28a745;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.user-details-table button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+.user-details-table button:first-child:hover {
+  background-color: #218838;
+}
+
+.user-details-table button:last-child:hover {
+  background-color: #c82333;
+}
+.student-details-initial-view{
+  color: darkslategray;
+  text-align: center;
+  margin-top: 80px;
+}
+.student-details-failed-view{
+  color:#dc3545;
+  text-align: center;
+  margin-top:80px;
+}

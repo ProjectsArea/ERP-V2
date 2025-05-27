@@ -1,0 +1,216 @@
+/* index.css */
+
+/* Container and header styles */
+.project-admission-container {
+    padding: 20px;
+  }
+  
+  .project-admission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .project-admission-count {
+    font-weight: bold;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-item label {
+    margin-right: 10px;
+  }
+  
+  .project-admission-status-filter,
+  .project-admission-guide-filter {
+    padding: 5px;
+  }
+  
+  .project-admission-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .project-admission-table th,
+  .project-admission-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .project-admission-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .project-admission-enroll-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .project-admission-enroll-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .project-admission-no-data {
+    text-align: center;
+    font-size: 1.2em;
+  }
+  
+  .project-admission-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+  }
+  
+
+  .project-admission-modal {
+    position: relative;
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 80vh;
+    overflow: auto;
+  }
+  
+  .close-modal-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .close-modal-btn:hover {
+    background-color: #c82333;
+  }
+  
+  /* Form styles */
+  .enroll-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .required {
+    color: red;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.875em;
+  }
+  
+  .project-admission-save-button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100px;
+    margin-bottom: 20px;
+  }
+  
+  .save-button[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    z-index: 1000;
+    overflow-y: auto; /* Ensure content is scrollable if it overflows */
+  }
+  
+  .close-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .enroll-form .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .enroll-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .enroll-form input,
+  .enroll-form select,
+  .enroll-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .enroll-form .required {
+    color: red;
+  }
+  
+  .enroll-form .error {
+    color: red;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+  }
+  
+  .submit-btn {
+    padding: 0.75rem 1.5rem;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

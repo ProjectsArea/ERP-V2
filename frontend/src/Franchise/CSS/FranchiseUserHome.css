@@ -1,0 +1,67 @@
+/* FranchiseUserHome.css */
+
+#menuBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    background: linear-gradient(90deg, #e0eafc, #cfdef3);
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-wrap: wrap;
+    border-radius: 0 0 16px 16px;
+  }
+  
+  #menuBar div {
+    background-color: #ffffff;
+    padding: 0.7rem 1.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  #menuBar div:hover {
+    background-color: #4a90e2;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 144, 226, 0.3);
+  }
+  
+  #menuBar div:active {
+    transform: scale(0.96);
+  }
+  
+  #menuBar div::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  
+  #menuBar div:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  
+  /* Optional wrapper for spacing */
+  .content-wrapper {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+  

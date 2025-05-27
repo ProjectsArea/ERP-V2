@@ -1,0 +1,136 @@
+.rejected-glass-container {
+    max-width: 1300px;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+  }
+  
+  .rejected-heading {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  
+  .rejected-heading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #52e5e7, #130cb7);
+    border-radius: 2px;
+  }
+  
+  
+  .empty-state {
+    text-align: center;
+    color: #999;
+    font-size: 1.2rem;
+    padding: 2rem 0;
+  }
+  
+  .rejected-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 💡 4 cards per row */
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  @media (max-width: 1200px) {
+    .rejected-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .rejected-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .rejected-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .rejected-card {
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 18px;
+    padding: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .rejected-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+  
+  .image-wrapper {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+  }
+  
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .details p {
+    margin: 6px 0;
+    color: #333;
+    font-size: 0.92rem;
+  }
+  
+  .status-chip {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+  }
+  
+  .status-chip.rejected {
+    background: #ffd6da;
+    color: #b30000;
+  }
+  
+  .verify-action {
+    display: block;
+    margin-top: 1rem;
+    width: 100%;
+    background: linear-gradient(135deg, #52e5e7 0%, #130cb7 100%);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .verify-action:hover {
+    background: linear-gradient(135deg, #47cacc 0%, #0e0a99 100%);
+  }
+  

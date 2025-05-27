@@ -1,0 +1,114 @@
+/* Verified.css */
+
+.verified-container {
+  max-width: 1200px;
+  padding: 2rem 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  color: #2c3e50;
+}
+
+.verified-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+.verified-heading::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #52e5e7, #130cb7);
+  border-radius: 2px;
+}
+
+.no-orders {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+}
+
+.verified-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  .verified-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1.2rem;
+    .card-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      column-gap: 3rem;
+    }
+  }
+}
+
+.verified-grid > div {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1.2rem 2rem;
+  border-radius: 10px;
+  border-left: 6px solid #3498db;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+  width: 100%;
+}
+
+.verified-grid > div:hover {
+  transform: translateY(-2px);
+}
+
+.verified-grid img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 2rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.verified-grid p {
+  margin: 0.2rem 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.verified-grid p strong {
+  color: #34495e;
+}
+
+.verified-grid > div > div.details {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.6rem 1rem;
+}
+
+.verified-grid button {
+  padding: 0.6rem 1.2rem;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.verified-grid button:hover {
+  background-color: #c0392b;
+}

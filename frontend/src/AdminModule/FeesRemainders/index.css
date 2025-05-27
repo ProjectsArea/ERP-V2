@@ -1,0 +1,87 @@
+.student-table {
+  margin: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.loading-message,
+.error-message,
+.no-data-message {
+  text-align: center;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.loading-message {
+  color: #007bff;
+  background-color: #e0f7ff;
+}
+
+.error-message {
+  color: #d9534f;
+  background-color: #f9d6d5;
+}
+
+.no-data-message {
+  color: #f0ad4e;
+  background-color: #fcf8e3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #f0f0f0;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+th.fee-id, td.fee-id {
+  min-width: 100px;
+}
+
+th.fee-name, td.fee-name {
+  min-width: 150px;
+}
+
+th.fee-course, td.fee-course {
+  min-width: 150px;
+}
+
+th.fee-total, td.fee-total {
+  min-width: 100px;
+}
+
+th.fee-paid, td.fee-paid {
+  min-width: 100px;
+}
+
+th.fee-remainder, td.fee-remainder {
+  min-width: 100px;
+}
+
+th.fee-phone, td.fee-phone {
+  min-width: 150px;
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+tr {
+  animation: fadeIn 0.5s ease-in-out;
+}

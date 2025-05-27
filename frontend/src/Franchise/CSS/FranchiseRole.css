@@ -1,0 +1,70 @@
+.franchise-role-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f5f7fa;
+}
+
+.franchise-role-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.role-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.role-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.role-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background-color: #4299e1;
+}
+
+.role-text {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.role-card:hover .role-text {
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .franchise-role-container {
+    padding: 1rem;
+  }
+  
+  .franchise-role-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .role-card {
+    padding: 1.25rem;
+  }
+  
+  .role-text {
+    font-size: 1.1rem;
+  }
+}

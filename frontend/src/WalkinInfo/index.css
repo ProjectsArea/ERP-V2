@@ -1,0 +1,77 @@
+.walkin-info-container {
+   
+    height: 100vh;
+    margin: 0 auto;
+    padding: 20px;
+    /* background-color: #f9f9f9; */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .walkin-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .walkin-info-header h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .walkin-info-count {
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  .walkin-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .walkin-info-table th,
+  .walkin-info-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .walkin-info-table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .walkin-info-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .walkin-info-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  .walkin-info-loading,
+  .walkin-info-error {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  .walkin-info-no-data {
+    text-align: center;
+    font-size: 24px;
+    color: red;
+    margin-top: 50px;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
