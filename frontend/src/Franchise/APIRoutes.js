@@ -2,11 +2,17 @@ const api = process.env.REACT_APP_API;
 
 export const host = `${api}`;
 
+// ------------- franchise general routes --------------------
+export const checkLoginRoute = `${host}/franchise/login`
+
 // ------------- franchise admin routes ----------------------
 export const uploadItemsRoute = `${host}/franchise/admin/uploadItems`
 export const getAllItemsRoute = `${host}/franchise/admin/allItems`
 export const getAdminOrdersRoute = `${host}/franchise/admin/allOrders`
 export const updateOrderStatusRoute = `${host}/franchise/admin/updateOrderStatus`
+export const addFranchiseUserRoute = `${host}/franchise/admin/addUser`
+export const changePasswordRoute = `${host}/franchise/admin/changePassword`
+export const viewAllUsers = `${host}/franchise/admin/allUsers`
 
 
 // ------------- franchise user routes ------------------------

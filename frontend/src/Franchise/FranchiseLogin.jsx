@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 import "./CSS/FranchiseLogin.css";
+import { checkLoginRoute } from "./APIRoutes";
 
 function FranchiseLogin() {
   const { state } = useLocation();
@@ -12,7 +14,6 @@ function FranchiseLogin() {
     password: "",
     role: state?.role || "",
   });
-
 
   const toastOptions = {
     position: "bottom-right",
@@ -26,74 +27,54 @@ function FranchiseLogin() {
     if (!state?.role) {
       navigate("/franchise");
     }
-  },[]);
+  }, []);
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
     if (values.role === "ADMIN") {
+      // Hardcoded admin login
       if (values.username === "admin" && values.password === "admin@123") {
         localStorage.setItem(
           "currentUser",
-          JSON.stringify({
-            username: values.username,
-            role: values.role,
-          })
+          JSON.stringify({ username: values.username, role: values.role })
         );
         navigate("/franchiseAdminHome");
       } else {
-        toast.error("Invalid credentials", toastOptions);
+        toast.error("Invalid admin credentials", toastOptions);
       }
-    } else if (values.role === "ACCOUNTANT") {
-      if (values.username === "accountant" && values.password === "12345678") {
-        localStorage.setItem(
-          "currentUser",
-          JSON.stringify({
-            username: values.username,
-            role: values.role,
-          })
-        );
-        navigate("/franchiseAccountantHome");
-      } else {
-        toast.error("Invalid credentials", toastOptions);
-      }
-    } else if (values.role === "USER") {
-      if (
-        (values.username === "userOne" && values.password === "12345678") ||
-        (values.username === "userTwo" && values.password === "12345678")
-      ) {
-        localStorage.setItem(
-          "currentUser",
-          JSON.stringify({
-            username: values.username,
-            role: values.role,
-          })
-        );
-        navigate("/franchiseUserHome");
-      } else {
-        toast.error("Invalid credentials", toastOptions);
-      }
+      return;
     }
 
-    else if (values.role === "STORE") {
-      if (
-        (values.username === "userOne" && values.password === "12345678") ||
-        (values.username === "userTwo" && values.password === "12345678")
-      ) {
-        localStorage.setItem(
-          "currentUser",
-          JSON.stringify({
-            username: values.username,
-            role: values.role,
-          })
-        );
-        navigate("/franchiseStoreHome");
+    // For other roles, call backend
+    try {
+      const { data } = await axios.post(checkLoginRoute, values);
+
+      if (data.status) {
+        localStorage.setItem("currentUser", JSON.stringify(data.user));
+        switch (data.user.role) {
+          case "ACCOUNTANT":
+            navigate("/franchiseAccountantHome");
+            break;
+          case "USER":
+            navigate("/franchiseUserHome");
+            break;
+          case "STORE":
+            navigate("/franchiseStoreHome");
+            break;
+          default:
+            toast.error("Unknown role", toastOptions);
+        }
       } else {
-        toast.error("Invalid credentials", toastOptions);
+        toast.error(data.message, toastOptions);
       }
+    } catch (err) {
+      console.error(err);
+      toast.error("Login failed. Try again.", toastOptions);
     }
   };
 
@@ -109,6 +90,7 @@ function FranchiseLogin() {
               placeholder="USERNAME"
               onChange={handleChange}
               className="login-input"
+              required
             />
           </div>
           <div className="form-group">
@@ -118,11 +100,10 @@ function FranchiseLogin() {
               placeholder="PASSWORD"
               onChange={handleChange}
               className="login-input"
+              required
             />
           </div>
-          <button type="submit" className="login-button">
-            Login
-          </button>
+          <button type="submit" className="login-button">Login</button>
         </form>
       </div>
       <ToastContainer />

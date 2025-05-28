@@ -1,5 +1,5 @@
 const express = require("express");
-const { uploadItems, getAllItems, deleteItem, updateItem, allOrders, updateOrderStatus } = require("../controllers/franchiseController");
+const { uploadItems, getAllItems, deleteItem, updateItem, allOrders, updateOrderStatus, addUser, changePassword, allUsers, deleteUser } = require("../controllers/franchiseController");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
@@ -32,6 +32,11 @@ franchiseRouter.delete("/allItems/:id", deleteItem)
 franchiseRouter.put("/allItems/:id", updateItem)
 franchiseRouter.get("/allOrders", allOrders)
 franchiseRouter.post("/updateOrderStatus", updateOrderStatus)
+franchiseRouter.post("/addUser", addUser)
+franchiseRouter.post("/changePassword", changePassword)
+franchiseRouter.get("/allUsers", allUsers)
+franchiseRouter.delete("/allUsers/:actorId", deleteUser)
+
 
 
 module.exports = franchiseRouter;

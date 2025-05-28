@@ -5,6 +5,9 @@ import AdminOrders from "./Admin/AdminOrders";
 import AdminAllItems from "./Admin/AdminAllItems";
 import TrackStatusOrders from "./Admin/TrackStatusOrders";
 import "./CSS/FranchiseAdminHome.css";
+import AdminChangePassword from "./Admin/AdminChangePassword";
+import AdminAddUser from "./Admin/AdminAddUser";
+import AdminViewActors from "./Admin/AdminViewActors";
 
 function FranchiseAdminHome() {
   useEffect(() => {
@@ -25,6 +28,12 @@ function FranchiseAdminHome() {
       setContent(<AdminAllItems />);
     } else if (page === "orders") {
       setContent(<AdminOrders />);
+    } else if (page === "person") {
+      setContent(<AdminAddUser />);
+    } else if (page === "password") {
+      setContent(<AdminChangePassword />);
+    } else if (page === "view") {
+      setContent(<AdminViewActors />);
     } else if (page === "out") {
       localStorage.removeItem("currentUser");
       navigate("/");
@@ -54,6 +63,15 @@ function FranchiseAdminHome() {
         </div>
         <div className="menu-item" onClick={() => handleClick("add")}>
           <span className="menu-text">Upload Product</span>
+        </div>
+        <div className="menu-item" onClick={() => handleClick("view")}>
+          <span className="menu-text">View Actors</span>
+        </div>
+        <div className="menu-item" onClick={() => handleClick("person")}>
+          <span className="menu-text">Add Person</span>
+        </div>
+        <div className="menu-item" onClick={() => handleClick("password")}>
+          <span className="menu-text">Change Password</span>
         </div>
         <div className="menu-item logout" onClick={() => handleClick("out")}>
           <span className="menu-text">Logout</span>
