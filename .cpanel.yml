@@ -14,4 +14,4 @@ deployment:
 
     # Deploy frontend
     - echo "Deploying frontend..."
-    - cp -r ./frontend/* $FRONTEND_PATH
+    - cp -r ./frontend/build/* $FRONTEND_PATH
