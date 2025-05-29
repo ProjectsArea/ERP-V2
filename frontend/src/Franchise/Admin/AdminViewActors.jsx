@@ -41,6 +41,7 @@ function AdminViewActors() {
                     <tr>
                         <th>#</th>
                         <th>Actor Name</th>
+                        <th>Actor Role</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -49,6 +50,7 @@ function AdminViewActors() {
                         <tr key={actor._id}>
                             <td>{index + 1}</td>
                             <td>{actor.username}</td>
+                            <td>{actor.role}</td>
                             <td>
                                 <button className="delete-btn" onClick={() => handleDelete(actor._id)}>Delete</button>
                             </td>

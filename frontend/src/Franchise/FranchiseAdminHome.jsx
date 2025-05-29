@@ -11,11 +11,29 @@ import AdminViewActors from "./Admin/AdminViewActors";
 
 function FranchiseAdminHome() {
   useEffect(() => {
-    const currentUser = localStorage.getItem("currentUser");
-    if (!currentUser) {
+    const userString = localStorage.getItem("currentUser");
+
+    if (!userString) {
       navigate("/franchise");
+      return;
+    }
+
+    const currentUser = JSON.parse(userString);
+    console.log(currentUser.role);
+
+    if (currentUser.role !== "ADMIN") {
+      if (currentUser.role === "STORE") {
+        navigate("/franchiseStoreHome");
+      } else if (currentUser.role === "ACCOUNTANT") {
+        navigate("/franchiseAccountantHome");
+      } else if (currentUser.role === "USER") {
+        navigate("/franchiseUserHome");
+      } else {
+        navigate("/franchise");
+      }
     }
   }, []);
+
 
   const [content, setContent] = useState(<AdminOrders />);
   const [showTrackMenu, setShowTrackMenu] = useState(false);

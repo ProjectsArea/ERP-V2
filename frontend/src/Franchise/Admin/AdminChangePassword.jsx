@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../CSS/AdminAddUser.css'; // Reusing your existing CSS
+import '../CSS/AdminAddUser.css';
 import axios from 'axios';
 import { changePasswordRoute } from '../APIRoutes';
 
@@ -11,8 +11,35 @@ function AdminChangePassword() {
         confirmNewPassword: '',
     });
 
+    const [criteria, setCriteria] = useState({
+        length: false,
+        uppercase: false,
+        lowercase: false,
+        number: false,
+        specialChar: false,
+    });
+
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+
+        if (name === 'newPassword') {
+            checkPasswordCriteria(value);
+        }
+    };
+
+    const checkPasswordCriteria = (password) => {
+        setCriteria({
+            length: password.length >= 8,
+            uppercase: /[A-Z]/.test(password),
+            lowercase: /[a-z]/.test(password),
+            number: /\d/.test(password),
+            specialChar: /[@$!%*?&]/.test(password),
+        });
+    };
+
+    const isPasswordValid = () => {
+        return Object.values(criteria).every(Boolean);
     };
 
     const handleSubmit = async (e) => {
@@ -28,17 +55,23 @@ function AdminChangePassword() {
             alert('New passwords do not match.');
             return;
         }
-        const res = await axios.post(changePasswordRoute, {
-            username,
-            newPassword,
-            currentPassword
-        });
-        if (res.data.status === false) {
-            console.log(res.data.message);
-            alert(res.data.message);
+
+        if (!isPasswordValid()) {
+            alert('Password does not meet all the required criteria.');
+            return;
         }
-        else {
-            alert(res.data.message)
+
+        try {
+            const res = await axios.post(changePasswordRoute, {
+                username,
+                newPassword,
+                currentPassword
+            });
+
+            alert(res.data.message);
+        } catch (err) {
+            alert('An error occurred. Please try again.');
+            console.error(err);
         }
     };
 
@@ -49,43 +82,33 @@ function AdminChangePassword() {
                 <form className="admin-form" onSubmit={handleSubmit}>
                     <label>
                         Username:
-                        <input
-                            className="admin-input"
-                            type="text"
-                            name="username"
-                            value={form.username}
-                            onChange={handleChange}
-                        />
+                        <input className="admin-input" type="text" name="username" value={form.username} onChange={handleChange} />
                     </label>
                     <label>
                         Current Password:
-                        <input
-                            className="admin-input"
-                            type="password"
-                            name="currentPassword"
-                            value={form.currentPassword}
-                            onChange={handleChange}
-                        />
+                        <input className="admin-input" type="password" name="currentPassword" value={form.currentPassword} onChange={handleChange} />
                     </label>
                     <label>
                         New Password:
-                        <input
-                            className="admin-input"
-                            type="password"
-                            name="newPassword"
-                            value={form.newPassword}
-                            onChange={handleChange}
-                        />
+                        <input className="admin-input" type="password" name="newPassword" value={form.newPassword} onChange={handleChange} />
                     </label>
+
+                    {form.newPassword && (
+                        <div className="password-criteria" style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>
+                            <p>Password must contain:</p>
+                            <ul style={{ paddingLeft: '1.2rem' }}>
+                                <li style={{ color: criteria.length ? 'green' : 'red' }}>• At least 8 characters</li>
+                                <li style={{ color: criteria.uppercase ? 'green' : 'red' }}>• One uppercase letter (A-Z)</li>
+                                <li style={{ color: criteria.lowercase ? 'green' : 'red' }}>• One lowercase letter (a-z)</li>
+                                <li style={{ color: criteria.number ? 'green' : 'red' }}>• One number (0-9)</li>
+                                <li style={{ color: criteria.specialChar ? 'green' : 'red' }}>• One special character (@$!%*?&)</li>
+                            </ul>
+                        </div>
+                    )}
+
                     <label>
                         Confirm New Password:
-                        <input
-                            className="admin-input"
-                            type="password"
-                            name="confirmNewPassword"
-                            value={form.confirmNewPassword}
-                            onChange={handleChange}
-                        />
+                        <input className="admin-input" type="password" name="confirmNewPassword" value={form.confirmNewPassword} onChange={handleChange} />
                     </label>
                     <button type="submit" className="admin-submit-btn">Change Password</button>
                 </form>

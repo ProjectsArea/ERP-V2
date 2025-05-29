@@ -11,8 +11,35 @@ function AdminAddUser() {
         confirmPassword: '',
     });
 
+    const [criteria, setCriteria] = useState({
+        length: false,
+        uppercase: false,
+        lowercase: false,
+        number: false,
+        specialChar: false,
+    });
+
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setForm({ ...form, [name]: value });
+
+        if (name === 'password') {
+            checkPasswordCriteria(value);
+        }
+    };
+
+    const checkPasswordCriteria = (password) => {
+        setCriteria({
+            length: password.length >= 8,
+            uppercase: /[A-Z]/.test(password),
+            lowercase: /[a-z]/.test(password),
+            number: /\d/.test(password),
+            specialChar: /[@$!%*?&]/.test(password),
+        });
+    };
+
+    const isPasswordValid = () => {
+        return Object.values(criteria).every(Boolean);
     };
 
     const handleSubmit = async (e) => {
@@ -29,6 +56,11 @@ function AdminAddUser() {
             return;
         }
 
+        if (!isPasswordValid()) {
+            alert('Password does not meet all the required criteria.');
+            return;
+        }
+
         try {
             const res = await axios.post(addFranchiseUserRoute, {
                 role,
@@ -39,22 +71,27 @@ function AdminAddUser() {
 
             if (res.data.status === true) {
                 alert(res.data.message || 'User created successfully!');
-                // Optionally reset the form
                 setForm({
                     role: 'USER',
                     username: '',
                     password: '',
                     confirmPassword: '',
                 });
-            }
-            else {
-                alert(res.data.message)
+                setCriteria({
+                    length: false,
+                    uppercase: false,
+                    lowercase: false,
+                    number: false,
+                    specialChar: false,
+                });
+            } else {
+                alert(res.data.message);
             }
         } catch (err) {
-            alert(err);
+            alert('Something went wrong. Try again later.');
+            console.error(err);
         }
     };
-
 
     return (
         <div className="admin-add-user-container">
@@ -77,6 +114,20 @@ function AdminAddUser() {
                         Password:
                         <input className="admin-input" type="password" name="password" value={form.password} onChange={handleChange} />
                     </label>
+
+                    {form.password && (
+                        <div className="password-criteria" style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>
+                            <p>Password must contain:</p>
+                            <ul style={{ paddingLeft: '1.2rem' }}>
+                                <li style={{ color: criteria.length ? 'green' : 'red' }}>• At least 8 characters</li>
+                                <li style={{ color: criteria.uppercase ? 'green' : 'red' }}>• One uppercase letter (A-Z)</li>
+                                <li style={{ color: criteria.lowercase ? 'green' : 'red' }}>• One lowercase letter (a-z)</li>
+                                <li style={{ color: criteria.number ? 'green' : 'red' }}>• One number (0-9)</li>
+                                <li style={{ color: criteria.specialChar ? 'green' : 'red' }}>• One special character (@$!%*?&)</li>
+                            </ul>
+                        </div>
+                    )}
+
                     <label>
                         Confirm Password:
                         <input className="admin-input" type="password" name="confirmPassword" value={form.confirmPassword} onChange={handleChange} />
@@ -85,7 +136,6 @@ function AdminAddUser() {
                 </form>
             </div>
         </div>
-
     );
 }
 

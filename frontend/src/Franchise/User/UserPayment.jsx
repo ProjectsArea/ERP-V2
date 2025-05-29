@@ -8,12 +8,29 @@ import "../CSS/UserPayment.css";
 
 function UserPayment() {
   useEffect(() => {
-    const currentUser = localStorage.getItem("currentUser");
+    const userString = localStorage.getItem("currentUser");
 
-    if (!currentUser) {
+    if (!userString) {
       navigate("/franchise");
+      return;
+    }
+
+    const currentUser = JSON.parse(userString);
+    console.log(currentUser.role);
+
+    if (currentUser.role !== "ADMIN") {
+      if (currentUser.role === "STORE") {
+        navigate("/franchiseStoreHome");
+      } else if (currentUser.role === "ACCOUNTANT") {
+        navigate("/franchiseAccountantHome");
+      } else if (currentUser.role === "USER") {
+        navigate("/franchiseUserHome");
+      } else {
+        navigate("/franchise");
+      }
     }
   }, []);
+
   const location = useLocation();
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
