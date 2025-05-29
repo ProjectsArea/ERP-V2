@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import StoreData from './Store/StoreData';
 import StoreAnalysis from './Store/StoreAnalysis';
+import StoreAddData from './Store/StoreAddData';
 
 function FranchiseStoreHome() {
   useEffect(() => {
@@ -18,6 +19,8 @@ function FranchiseStoreHome() {
       setContent(<StoreData />);
     } else if (page === "anlys") {
       setContent(<StoreAnalysis />);
+    } else if (page === "storeAdd") {
+      setContent(<StoreAddData />);
     } else if (page === "out") {
       localStorage.removeItem("currentUser");
       navigate("/");
@@ -28,6 +31,7 @@ function FranchiseStoreHome() {
       <div id="menuBar">
         <div onClick={() => handleClick("all")}>All Stores</div>
         <div onClick={() => handleClick("anlys")}>Store Analysis</div>
+        <div onClick={() => handleClick("storeAdd")}>Add Store Data</div>
         <div onClick={() => handleClick("out")}>Logout</div>
       </div>
       <div className="content-wrapper">{content}</div>

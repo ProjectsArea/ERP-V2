@@ -30,10 +30,7 @@ const { loginCheck } = require('./controllers/franchiseController');
 
 const app = express();
 
-app.use(cors({
-  origin: ["http://localhost:3000"],
-  credentials: true, // if you're sending cookies or auth headers
-}));
+app.use(cors("*"));
 
 
 app.use(bodyParser.json({ limit: '50mb' }));

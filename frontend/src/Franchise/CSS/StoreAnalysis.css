@@ -32,12 +32,14 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     align-items: center;
     flex-wrap: wrap;
+    border: 2px black solid;
 }
 
 .filter-group {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    width: 30%;
 }
 
 .filter-group label {
