@@ -30,7 +30,10 @@ const { loginCheck } = require('./controllers/franchiseController');
 
 const app = express();
 
-app.use(cors("*"));
+app.use(cors({
+  origin: ["https://erpv4.frontend.ijernd.com"],
+  credentials: true, // if you're sending cookies or auth headers
+}));
 
 
 app.use(bodyParser.json({ limit: '50mb' }));
