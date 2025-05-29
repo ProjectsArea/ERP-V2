@@ -1216,7 +1216,8 @@ app.use("/franchise/admin", franchiseRouter);
 app.use("/franchise/user", franchiseUserRouter);
 app.use("/franchise/accounts", franchiseAccountsRouter);
 app.use("/franchise/store", franchiseStoreRouter);
-app.use("/franchise/login", loginCheck);
+// app.use("/franchise/login", loginCheck);
+app.post("/franchise/login", loginCheck);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
