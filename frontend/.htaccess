@@ -3,7 +3,8 @@
   RewriteBase /
 
   # Skip rewrite for API routes
-  RewriteCond %{REQUEST_URI} ^/api/
+  RewriteCond %{REQUEST_URI} ^/api/ [OR]
+  RewriteCond %{REQUEST_URI} ^/franchise/
   RewriteRule ^ - [L]
 
   # Normal React SPA rules
