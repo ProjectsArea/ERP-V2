@@ -14,33 +14,27 @@ const Employee = require('./model/Employee');
 const Fees = require("./model/Fees")
 const Course = require("./model/Course");
 const CenterCourse = require("./model/centerCourseSchema");
-const { FollowUp } = require('./model/FollowUp'); 
+const { FollowUp } = require('./model/FollowUp');
 const Walkin = require('./model/Walkin')
 const ProjectAdmission = require('./model/ProjectAdmission');
 const ProjectStatus = require('./model/ProjectStatus');
 const path = require('path');
 const csv = require('csv-parser');
 const fs = require('fs');
-<<<<<<< HEAD
 const franchiseUserRouter = require('./routes/franchiseUserRouter');
 const franchiseAccountsRouter = require('./routes/franchiseAccountsRoutes');
 const franchiseStoreRouter = require('./routes/franchiseStoreRoutes');
 const franchiseRouter = require("./routes/franchiseRoutes");
 const { loginCheck } = require('./controllers/franchiseController');
-=======
->>>>>>> 9d671ee4ee53baa0347d466e712331f353ed920d
+
 
 const app = express();
 
-<<<<<<< Updated upstream
 app.use(cors({
   origin: ["https://erpv4.frontend.ijernd.com"],
   credentials: true, // if you're sending cookies or auth headers
 }));
 
-=======
-app.use(cors("*"));
->>>>>>> Stashed changes
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -60,9 +54,9 @@ const upload = multer({
 
 // replace connection
 
-mongoose.connect('mongodb+srv://dataproDev:MongoDB1990@erp.ad9zoqp.mongodb.net/ERP')
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error(err));
+mongoose.connect('mongodb+srv://aarthiraju23527:1YuSKQdY8MrrzSgI@datapro.jhmd35k.mongodb.net/?retryWrites=true&w=majority&appName=DATAPRO')
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error(err));
 
 
 const authenticateToken = (req, res, next) => {
@@ -70,9 +64,9 @@ const authenticateToken = (req, res, next) => {
   if (!token) return res.status(401).send('Access Denied: No Token Provided');
 
   jwt.verify(token, "jwt-secret", (err, user) => {
-      if (err) return res.status(403).send('Invalid Token');
-      req.user = user;
-      next();
+    if (err) return res.status(403).send('Invalid Token');
+    req.user = user;
+    next();
   });
 };
 
@@ -97,7 +91,7 @@ const getRemainders = async () => {
       },
       {
         $sort: {
-          "remarks.followUpDate": -1 
+          "remarks.followUpDate": -1
         }
       },
       {
@@ -139,7 +133,14 @@ const formatDate = (date) => {
   return `${year}-${month}-${day}`;
 };
 
-app.post('/enquiries',authenticateToken, async (req, res) => {
+
+app.get("/", async (req, res) => {
+  return res.json({ status: true, message: "Welcome to ERP" })
+})
+
+
+
+app.post('/enquiries', authenticateToken, async (req, res) => {
   try {
     const {
       place,
@@ -160,8 +161,8 @@ app.post('/enquiries',authenticateToken, async (req, res) => {
       remarks
     } = req.body;
 
-    if(req.user.center !== centerName){
-       return res.status(500).json("Invalid Access");
+    if (req.user.center !== centerName) {
+      return res.status(500).json("Invalid Access");
     }
 
     const enquiryData = {
@@ -206,7 +207,7 @@ app.post('/enquiries',authenticateToken, async (req, res) => {
   }
 });
 
-app.get('/student-details',authenticateToken,async (req, res) => {
+app.get('/student-details', authenticateToken, async (req, res) => {
   try {
     const { mobile, aadhar } = req.query;
     console.log()
@@ -227,49 +228,49 @@ app.get('/student-details',authenticateToken,async (req, res) => {
   }
 });
 
-app.get('/enquiries',async (req, res) => {
+app.get('/enquiries', async (req, res) => {
   try {
-      const enquiries = await Enquiry.find({});
-      res.status(200).json(enquiries);
+    const enquiries = await Enquiry.find({});
+    res.status(200).json(enquiries);
   } catch (err) {
-      res.status(500).json({ message: 'Error fetching enquiries', error: err });
+    res.status(500).json({ message: 'Error fetching enquiries', error: err });
   }
 });
-app.get('/enquiry/:id',async (req, res) => {
-    const {id} = req.params
+app.get('/enquiry/:id', async (req, res) => {
+  const { id } = req.params
   try {
-      const enquiry = await Enquiry.findById({_id:id});
-      console.log(enquiry)
-      res.status(200).json(enquiry);
+    const enquiry = await Enquiry.findById({ _id: id });
+    console.log(enquiry)
+    res.status(200).json(enquiry);
   } catch (err) {
-      res.status(500).json({ message: 'Error fetching enquiries', error: err });
-  }
-});
-
-app.get('/enquiry-status',authenticateToken,async (req, res) => {
-  try {
-      const Councillor = req.user.name
-      const enquiries = await Enquiry.find({});
-      const en = enquiries.filter(u => u.counselorName.toLowerCase() === Councillor.toLowerCase());
-      res.status(200).json(en);
-  } catch (err) {
-      res.status(500).json({ message: 'Error fetching enquiries', error: err });
+    res.status(500).json({ message: 'Error fetching enquiries', error: err });
   }
 });
 
-app.delete("/delete-enquiry/:id",authenticateToken,async(req,res) =>{
-  const {id} = req.params;
-  try{
+app.get('/enquiry-status', authenticateToken, async (req, res) => {
+  try {
+    const Councillor = req.user.name
+    const enquiries = await Enquiry.find({});
+    const en = enquiries.filter(u => u.counselorName.toLowerCase() === Councillor.toLowerCase());
+    res.status(200).json(en);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching enquiries', error: err });
+  }
+});
+
+app.delete("/delete-enquiry/:id", authenticateToken, async (req, res) => {
+  const { id } = req.params;
+  try {
     const deleteEnquiry = await Enquiry.findByIdAndDelete(id);
     res.status(201).json("Enquiry Deleted")
-  }catch(e){
+  } catch (e) {
     res.status(500).json("Server Error")
   }
 })
 
 app.post('/register-manager', async (req, res) => {
   const { name, password, center } = req.body;
- 
+
   if (!name || !password || !center) {
     return res.status(400).json({ error: 'Name, password, and center are required.' });
   }
@@ -277,7 +278,7 @@ app.post('/register-manager', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log('Hashed Password:', hashedPassword);
-    
+
     const newManager = new Manager({
       name,
       password: hashedPassword,
@@ -295,9 +296,9 @@ app.post('/register-manager', async (req, res) => {
 });
 
 app.post('/manager-login', async (req, res) => {
-  const { username, password,center } = req.body;
+  const { username, password, center } = req.body;
   try {
-    const manager = await Manager.findOne({ name:username});
+    const manager = await Manager.findOne({ name: username });
     if (!manager) {
       return res.status(401).json({ error: 'Invalid name or password' });
     }
@@ -306,7 +307,7 @@ app.post('/manager-login', async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid name or password' });
     }
-    if(manager.center !== center){
+    if (manager.center !== center) {
       return res.status(401).json({ error: 'Invalid center' });
     }
 
@@ -318,7 +319,7 @@ app.post('/manager-login', async (req, res) => {
   }
 });
 
-app.get('/getDetails',authenticateToken,async (req, res) => {
+app.get('/getDetails', authenticateToken, async (req, res) => {
   const { mobile } = req.query;
   if (!mobile) {
     return res.status(400).json('Mobile number is required');
@@ -326,7 +327,7 @@ app.get('/getDetails',authenticateToken,async (req, res) => {
 
   try {
     const enquiries = await Enquiry.find({ mobile });
-    const filteredEnquiries = enquiries.filter(e => e.centerName === req.user.center  && e.counselorName.toLowerCase() === req.user.name.toLowerCase());
+    const filteredEnquiries = enquiries.filter(e => e.centerName === req.user.center && e.counselorName.toLowerCase() === req.user.name.toLowerCase());
     if (filteredEnquiries.length === 0) {
       return res.status(400).json('No data found for the provided mobile number');
     }
@@ -349,12 +350,12 @@ app.get('/getDetails/:id', async (req, res) => {
   }
 });
 
-app.post('/admissions',authenticateToken,upload.single('image'), async (req, res) => {
+app.post('/admissions', authenticateToken, upload.single('image'), async (req, res) => {
   try {
     const {
       IdNo, centerName, name, gender, address, aadhar,
       mobile, email, others, courseEnrolled,
-      totalFees, durationOfCourse, feeDueDate, trainer, timings,remarks,enrolledId
+      totalFees, durationOfCourse, feeDueDate, trainer, timings, remarks, enrolledId
     } = req.body;
     const newAdmissionData = {
       IdNo,
@@ -371,7 +372,7 @@ app.post('/admissions',authenticateToken,upload.single('image'), async (req, res
       durationOfCourse,
       feeDueDate,
       trainer,
-      counselorName :req.user.name,
+      counselorName: req.user.name,
       remarks,
       timings
     };
@@ -398,97 +399,97 @@ app.post('/admissions',authenticateToken,upload.single('image'), async (req, res
 
 app.get('/admissions', async (req, res) => {
   try {
-      const admission = await Admission.find({});
-      res.status(200).json(admission);
+    const admission = await Admission.find({});
+    res.status(200).json(admission);
   } catch (err) {
-      res.status(500).json({ message: 'Error fetching enquiries', error: err });
+    res.status(500).json({ message: 'Error fetching enquiries', error: err });
   }
 });
 
-app.post('/register-employee', authenticateToken,async (req, res) => {
+app.post('/register-employee', authenticateToken, async (req, res) => {
   const { username, password, role } = req.body;
 
   try {
 
     const center = req.user.center;
-      const existingEmployee = await Employee.findOne({ username:username,center:center });
+    const existingEmployee = await Employee.findOne({ username: username, center: center });
 
-      if (existingEmployee) {
-          return res.status(400).send('Username already exists');
-      }
-      const hashedPassword = await bcrypt.hash(password, 10);
+    if (existingEmployee) {
+      return res.status(400).send('Username already exists');
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-      const newEmployee = new Employee({
-          username,
-          password: hashedPassword,
-          role,
-          center
-      });
+    const newEmployee = new Employee({
+      username,
+      password: hashedPassword,
+      role,
+      center
+    });
 
-      await newEmployee.save();
-      res.status(201).send('Employee registered successfully');
+    await newEmployee.save();
+    res.status(201).send('Employee registered successfully');
   } catch (err) {
-      console.error(err);
-      res.status(500).send('Server error');
+    console.error(err);
+    res.status(500).send('Server error');
   }
 });
 
 app.post('/login-employee', async (req, res) => {
   const { username, password, center, role } = req.body;
   try {
-      const user = await Employee.findOne({ username });
-      if (!user) {
-          return res.status(404).json({ message: 'User not found' });
-      }
-      const passwordMatch = await bcrypt.compare(password, user.password);
+    const user = await Employee.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
-      if (!passwordMatch) {
-          return res.status(401).json({ message: 'Invalid password' });
-      }
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Invalid password' });
+    }
 
-      if (user.center !== center || user.role !== role) {
-          return res.status(401).json({ message: 'Invalid center or role' });
-      }
+    if (user.center !== center || user.role !== role) {
+      return res.status(401).json({ message: 'Invalid center or role' });
+    }
 
-      const token = jwt.sign({ id: user._id, center: user.center, name:user.username, role: user.role }, "jwt-secret", { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id, center: user.center, name: user.username, role: user.role }, "jwt-secret", { expiresIn: '1h' });
 
-      res.status(200).json({ token });
+    res.status(200).json({ token });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server error' });
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
-app.delete("/delete-employees/:id",async(req, res) => {
-  const {id} = req.params
-  try{
-    const d = await Employee.findByIdAndDelete({ _id:id });
+app.delete("/delete-employees/:id", async (req, res) => {
+  const { id } = req.params
+  try {
+    const d = await Employee.findByIdAndDelete({ _id: id });
     res.status(201).json("Deleted Successful")
-  }catch(e){
+  } catch (e) {
     res.status(500).json("Failed To Delete")
     console.log(e)
   }
 })
 
-app.get("/employees",async(req, res) => {
-  try{
+app.get("/employees", async (req, res) => {
+  try {
     const employees = await Employee.find({})
     res.status(200).json({ employees });
-  }catch(e){
+  } catch (e) {
     res.status(501).json({ "message": e });
   }
 })
 
-app.get("/student/:id",async(req,res) => {
-  const {id} = req.params
-  try{
-    const admission = await Admission.findOne({ IdNo:id })
-    const feesDetails = await Fees.findOne({ IdNo:id })
-    if(!admission){
+app.get("/student/:id", async (req, res) => {
+  const { id } = req.params
+  try {
+    const admission = await Admission.findOne({ IdNo: id })
+    const feesDetails = await Fees.findOne({ IdNo: id })
+    if (!admission) {
       return res.status(501).json("student not found")
     }
-    res.status(200).json({ admission,feesDetails });
-  }catch(e){
+    res.status(200).json({ admission, feesDetails });
+  } catch (e) {
     res.status(500).send(e)
   }
 })
@@ -509,12 +510,12 @@ app.post('/pay-fees', async (req, res) => {
     let fees = await Fees.findOne({ IdNo });
 
     if (fees) {
-      const lastTermNumber = fees.terms.length > 0 
-        ? Math.max(...fees.terms.map(term => term.termNumber)) 
+      const lastTermNumber = fees.terms.length > 0
+        ? Math.max(...fees.terms.map(term => term.termNumber))
         : 0;
       const newTermNumber = lastTermNumber + 1;
 
-      fees.terms.push({ receiptNumber,termNumber: newTermNumber, amountPaid, modeOfPayment });
+      fees.terms.push({ receiptNumber, termNumber: newTermNumber, amountPaid, modeOfPayment });
       fees.nextTermDate = nextTermDate;
       const totalPaid = fees.terms.reduce((total, term) => total + term.amountPaid, 0);
 
@@ -526,7 +527,7 @@ app.post('/pay-fees', async (req, res) => {
 
       fees = new Fees({
         IdNo,
-        terms: [{receiptNumber, termNumber: 1, amountPaid, modeOfPayment }],
+        terms: [{ receiptNumber, termNumber: 1, amountPaid, modeOfPayment }],
         nextTermDate,
         totalStatus,
         center
@@ -540,22 +541,22 @@ app.post('/pay-fees', async (req, res) => {
   }
 });
 
-app.get("/get-fees-details/:id",async(req, res) => {
-    const {id} = req.params;
-    try{
-      const feesDetails = await Fees.findOne({IdNo:id});
-      if(!feesDetails){
-        res.status(200).json("No Payment Details Found")
-      }
-      res.status(200).json(feesDetails)
-    }catch(e){
-      res.status(500).json(e.message)
+app.get("/get-fees-details/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const feesDetails = await Fees.findOne({ IdNo: id });
+    if (!feesDetails) {
+      res.status(200).json("No Payment Details Found")
     }
+    res.status(200).json(feesDetails)
+  } catch (e) {
+    res.status(500).json(e.message)
+  }
 })
 
 app.get('/fees-due-today', async (req, res) => {
   const today = new Date();
-  today.setHours(0, 0, 0, 0); 
+  today.setHours(0, 0, 0, 0);
 
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1); // Increment the date by one day
@@ -583,14 +584,14 @@ app.get('/fees-due-today', async (req, res) => {
   }
 });
 
-app.get("/fees",async(req, res) => {
-  try{
+app.get("/fees", async (req, res) => {
+  try {
     const feesDetails = await Fees.find();
-    if(!feesDetails){
+    if (!feesDetails) {
       res.status(200).json("No Payment Details Found")
     }
     res.status(200).json(feesDetails)
-  }catch(e){
+  } catch (e) {
     res.status(500).json(e.message)
   }
 })
@@ -920,31 +921,6 @@ app.get('/project-admissions', async (req, res) => {
 });
 
 app.put('/project-status', async (req, res) => {
-<<<<<<< HEAD
-  const {
-    projectId,
-    completedPercentage,
-    supportRequired,
-    anyProblems,
-    estimatedDateToComplete,
-    date,
-    dockerPullLink,
-    dockerRunCommand,
-    githubLink,
-    documentationLink
-  } = req.body;
-
-  console.log('Received data:', req.body);
-
-  if (
-    !projectId ||
-    typeof projectId !== 'string' ||
-    isNaN(Number(completedPercentage)) ||
-    !supportRequired ||
-    !anyProblems ||
-    !estimatedDateToComplete ||
-    !date
-=======
   const { projectId, completedPercentage, supportRequired, anyProblems, estimatedDateToComplete } = req.body;
   console.log(req.body)
 
@@ -954,89 +930,10 @@ app.put('/project-status', async (req, res) => {
     typeof supportRequired !== 'string' ||
     typeof anyProblems !== 'string' ||
     !estimatedDateToComplete
->>>>>>> 9d671ee4ee53baa0347d466e712331f353ed920d
   ) {
     return res.status(400).json({ error: 'Invalid input data' });
   }
 
-<<<<<<< HEAD
-  try {
-    // Create status object with all fields
-    const status = {
-      completedPercentage: Number(completedPercentage),
-      supportRequired: supportRequired.trim(),
-      anyProblems: anyProblems.trim(),
-      estimatedDateToComplete: new Date(estimatedDateToComplete),
-      date: new Date(date),
-      dockerPullLink: dockerPullLink?.trim() || '',
-      dockerRunCommand: dockerRunCommand?.trim() || '',
-      githubLink: githubLink?.trim() || '',
-      documentationLink: documentationLink?.trim() || ''
-    };
-
-    console.log('Formatted status object:', status);
-
-    // Find existing project or create new one
-    let project = await ProjectStatus.findOne({ projectId });
-
-    if (project) {
-      // Add new status to existing project
-      project.statusList.push(status);
-      const savedProject = await project.save();
-      console.log('Updated existing project:', savedProject);
-      
-      if (!savedProject) {
-        throw new Error('Failed to save project');
-      }
-    } else {
-      // Create new project with status
-      project = new ProjectStatus({
-        projectId,
-        statusList: [status]
-      });
-      const savedProject = await project.save();
-      console.log('Created new project:', savedProject);
-      
-      if (!savedProject) {
-        throw new Error('Failed to create new project');
-      }
-    }
-
-    // Verify the data was saved by fetching it again
-    const updatedProject = await ProjectStatus.findOne({ projectId });
-    console.log('Final project state:', updatedProject);
-
-    if (!updatedProject) {
-      throw new Error('Failed to verify saved data');
-    }
-
-    // Verify the latest status contains all fields
-    const latestStatus = updatedProject.statusList[updatedProject.statusList.length - 1];
-    console.log('Latest status:', latestStatus);
-
-    if (!latestStatus || !latestStatus.completedPercentage || !latestStatus.supportRequired) {
-      throw new Error('Status data is incomplete');
-    }
-
-    res.status(200).json({ 
-      message: 'Status added successfully', 
-      project: updatedProject,
-      latestStatus
-    });
-  } catch (error) {
-    console.error('Error saving project status:', error);
-    if (error.name === 'ValidationError') {
-      return res.status(400).json({ error: error.message });
-    }
-    if (error.name === 'MongoError') {
-      return res.status(500).json({ error: 'Database error: ' + error.message });
-    }
-    res.status(500).json({ error: 'Server error: ' + error.message });
-  }
-});
-
-
-=======
   const status = {
     completedPercentage: Number(completedPercentage),
     supportRequired,
@@ -1065,19 +962,18 @@ app.put('/project-status', async (req, res) => {
   }
 });
 
->>>>>>> 9d671ee4ee53baa0347d466e712331f353ed920d
-app.get("/project-status/:id",async(req, res) => {
-  const {id}  = req.params;
-  try{
-    const project = await ProjectStatus.findOne({projectId:id})
+app.get("/project-status/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const project = await ProjectStatus.findOne({ projectId: id })
     const status = project.statusList
-    res.status(201).json({status})
-  }catch(e){
-    res.status(500).json({e})
+    res.status(201).json({ status })
+  } catch (e) {
+    res.status(500).json({ e })
   }
-})  
+})
 
-app.get('/fees-today',authenticateToken, async (req, res) => {
+app.get('/fees-today', authenticateToken, async (req, res) => {
   try {
     const today = new Date();
     const todayStart = new Date(today.setHours(0, 0, 0, 0));
@@ -1089,7 +985,7 @@ app.get('/fees-today',authenticateToken, async (req, res) => {
     });
 
     const studentIds = fees.map(fee => fee.IdNo);
-    const admissions = await Admission.find({ IdNo: { $in: studentIds },centerName:center});
+    const admissions = await Admission.find({ IdNo: { $in: studentIds }, centerName: center });
 
     const data = admissions.map(admission => {
       const feeRecord = fees.find(fee => fee.IdNo === admission.IdNo);
@@ -1219,7 +1115,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   }
 });
 
-app.get('/download-fees-today',authenticateToken, async (req, res) => {
+app.get('/download-fees-today', authenticateToken, async (req, res) => {
   try {
     const today = new Date();
     const todayStart = new Date(today.setHours(0, 0, 0, 0));
@@ -1230,7 +1126,7 @@ app.get('/download-fees-today',authenticateToken, async (req, res) => {
       'terms.datePaid': { $gte: todayStart, $lte: todayEnd }
     });
     const studentIds = fees.map(fee => fee.IdNo);
-    const admissions = await Admission.find({ IdNo: { $in: studentIds },centerName:center});
+    const admissions = await Admission.find({ IdNo: { $in: studentIds }, centerName: center });
 
     const data = admissions.map(admission => {
       const feeRecord = fees.find(fee => fee.IdNo === admission.IdNo);
@@ -1311,7 +1207,9 @@ app.get('/download-fees-today',authenticateToken, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
+
+
+// ----------------------------------- franchise ------------------------------------
 
 app.use("/franchises", express.static("Franchise"));
 app.use("/franchise/admin", franchiseRouter);
@@ -1320,7 +1218,5 @@ app.use("/franchise/accounts", franchiseAccountsRouter);
 app.use("/franchise/store", franchiseStoreRouter);
 app.use("/franchise/login", loginCheck);
 
-=======
->>>>>>> 9d671ee4ee53baa0347d466e712331f353ed920d
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
