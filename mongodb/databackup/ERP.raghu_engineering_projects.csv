@@ -1,0 +1,59 @@
+_id,projectId,projectName,councillor,guide1
+67936d4e8bf792545c127071,25D0103,RAG Chat Bot,UB.RAJU,Deepak
+67936d4e8bf792545c127087,25K0191,Image based missing child reclamation using deep learning,Manju,Dinesh
+67936d4e8bf792545c12707b,25D0131,Prediction crime patterns : A Data-drive approach using Deep learning,Mahalakshmi,Deepak
+67936d4e8bf792545c127054,25D006,Smart Intrustion Detection With AI and DeepLearning For Enhanced Network Security,UB.RAJU,Deepak
+67936d4e8bf792545c12705e,25V0046,Command and control traffic detection and mitigation in Botnet Driven networks,Manju,Vijay
+67936d4e8bf792545c127057,25D0021,Detection of cyber harassers on social media,Manju,Deepak
+67936d4e8bf792545c127082,25D0174,Enhanced Disease prediction Accuracy using Random Forest,Gyan,Deepak
+67936d4e8bf792545c12707e,25D0136,Gold price forecasting using Machine learning algorithms,Manju,Deepak
+67936d4e8bf792545c12706a,25H0088,Price Prediction of crypto currency using LDA and CNN,Mahalakshmi,HariBabu
+67936d4e8bf792545c127089,25K0198,Harnessing image processing techniques for pest detection and extraction using ML,Gyan,Dinesh
+67936d4e8bf792545c12705b,25D0034,Disease Predication and Hospital recommendation using ML,Mahalakshmi,Deepak
+67936d4e8bf792545c127067,25D0082,online transactions and UPI fraud Detection ,Manju,Deepak
+67936d4e8bf792545c127064,25D0077,Sign Language Recognition Using M.L,Manju,Deepak
+67936d4e8bf792545c12707d,25D0133,Automated Student attendance tracking system using haarcascade and LBPH face recognition face recognition algorithms,Gyan,Deepak
+67936d4e8bf792545c127061,25V0060,Train track crack classification using convolution neural Network,Mahalakshmi,Vijay
+67936d4e8bf792545c127053,25D005,Early DDOS Detection and Prevention,UB.RAJU,Deepak
+67936d4e8bf792545c12705d,25D0035,REVOLUTIONIZING ACTIVITY DETECTION using ANN,Mahalakshmi,Deepak
+67936d4e8bf792545c12708b,25D0204,online proctoring system,Mahalakshmi,Deepak
+67936d4e8bf792545c12706e,25S0100,Bank Loan Approval using ML,UB.RAJU,Saswith
+67936d4e8bf792545c12705f,25H0048,Spammer Detection Of fake User identification,Reshma,HariBabu
+67936d4e8bf792545c12706f,25D0101,Actism disorder Prediction Using ML,UB.RAJU,Deepak
+67936d4e8bf792545c127085,25D0208,Fake Social Media Profile Using ML Techniques,Mahalakshmi,Deepak
+67936d4e8bf792545c127052,25H004,Cloud Security Framework With Data Encryption and Access Control in Python,UB.RAJU,HariBabu
+67936d4e8bf792545c127066,25H0079,Budget travelling app,Manju,HariBabu
+67936d4e8bf792545c127058,25D0026,Personized Skin Care Products Recommendations using ML & DL ,Gyan,Deepak
+67936d4e8bf792545c127079,25S0124,Sentimental Analysis on Social Media using Machine Learning,Mahalakshmi,Saswith
+67936d4e8bf792545c127088,25S0194,Visualizing customer interaction patterns in E-commerce,Manju,Saswith
+67936d4e8bf792545c127080,25H0145,Steganography with cipher text,Manju,Haribabu
+67936d4e8bf792545c127072,25S0104,Skin Disease detection system using CNM,UB.RAJU,Saswith
+67936d4e8bf792545c127055,25D0010,Airfare price prediction,Gyan,Deepak
+67936d4e8bf792545c12706c,25D0098,AI Assisted code Review system,UB.RAJU,Deepak
+67936d4e8bf792545c12707c,25D0132,Voice Sense real-time emotion detection through deep learning,Manju,Deepak
+67936d4e8bf792545c12707a,25D0130,Automated criminal detection using CNN-based facial recognition systen,Mahalakshmi,Deepak
+67936d4e8bf792545c12708a,25D0203,Leveraging ML to predict Depression,Mahalakshmi,Deepak
+67936d4e8bf792545c127074,25D0106,Pneumonia detection using ensemble CNN architectures,UB.RAJU,Deepak
+67936d4e8bf792545c127077,25H0119,Hybrid deep learning based system for real time mininformation and crime detection on Social Network,Mahalakshmi,HariBabu
+67936d4e8bf792545c127062,25hH0071,Care Compaxion Machine Learning Algorithms [Medi boti],Mahalakshmi,HariBabu
+67936d4e8bf792545c127073,25D0105,Prediction of big mort sales using ML Algorihms,UB.RAJU,Deepak
+67936d4e8bf792545c127065,25V0085,Missing Child Identification Using Deep Learning and Multiclass SVM,ISHAK,Vijay
+67936d4e8bf792545c127084,25D0177,Cardiovascular stroke prediction using ensembled,Manju,Deepak
+67936d4e8bf792545c127081,25D0146,Identification of weeds from crops using convolution Neural Network,Manju,Deepak
+67936d4e8bf792545c127063,25H0072,Farmer Customer Trades Along With Crop Recommendation System And Cropy Yeild Prediction Using ML,Mahalakshmi,HariBabu
+67936d4e8bf792545c127078,25V0120,Indian sign language to speech conversion using Deep learning,ISHAK,Vijay
+67936d4e8bf792545c127086,25D0178,Handwritten Signature recognition and verification in Telugu Script,Mahalakshmi,Deepak
+67936d4e8bf792545c127069,25D0087,Detection of fake profile in online social network using machine learning,Gyan,Deepak
+67936d4e8bf792545c127070,25D0102,Crop yeild Prediction and crop recommendation based on ML,UB.RAJU,Deepak
+67936d4e8bf792545c127076,25V0118,Real Time monitoring of personal protective equipment compliance in surveillance camers,Gyan,Vijay
+67936d4e8bf792545c12707f,25D0141,Enhancing Mental Health Care with AI,Mahalakshmi,Deepak
+67936d4e8bf792545c12706b,25D0094,AI Powered threat detection using Surveillance camera (weapon detection) ,Mahalakshmi,Deepak
+67936d4e8bf792545c12705a,25D0033,AL-Driven Network intrusion detection system,Mahalakshmi,Deepak
+67936d4e8bf792545c127068,25S0086,Fake production identification system using Block chain,Gyan,Saswith
+67936d4e8bf792545c12706d,25D0099,Early Diagnosis of Alzheimer’s Disease Using Deep Learning,UB.RAJU,Deepak
+67936d4e8bf792545c127083,25D0183,Multilingual aspect based sentimar analysis,Gyan,Deepak
+67936d4e8bf792545c127056,25V0012,Prevention and Detection of Network attacks,Mahalakshmi,Vijay
+67936d4e8bf792545c12705c,25S0017,Block Chain based voting system,Mahalakshmi,Saswith
+67936d4e8bf792545c127060,25V0051,Prediction of diabetes using Fused Learning models,Sony,Vijay
+67936d4e8bf792545c127075,25V0114,Gesture Enable virwal and voice tool,Gyan,Vijay
+67936d4e8bf792545c127059,25V0027,Hiding data using efficient combination of RSA orypotography,UB.RAJU,Vijay
