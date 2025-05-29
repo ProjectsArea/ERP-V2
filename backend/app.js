@@ -31,7 +31,7 @@ const { loginCheck } = require('./controllers/franchiseController');
 const app = express();
 
 app.use(cors({
-  origin: ["https://erpv4.frontend.ijernd.com"],
+  origin: ["https://erpv4.frontend.ijernd.com", "http://localhost:3000"],
   credentials: true, // if you're sending cookies or auth headers
 }));
 
