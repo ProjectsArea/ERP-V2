@@ -1,0 +1,85 @@
+.store-add-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: #f4f7fa;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: -50px;
+}
+
+.store-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.store-form input,
+.store-form select {
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.store-form input:focus,
+.store-form select:focus {
+  border-color: #007bff;
+}
+
+.store-form .dropdowns {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.store-form .dropdowns label {
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.store-form .month-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.8rem;
+}
+
+.store-form button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.9rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.store-form button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+  .store-form {
+    padding: 1.2rem;
+  }
+
+  .store-form .dropdowns {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .store-form .month-group {
+    grid-template-columns: 1fr;
+  }
+}
