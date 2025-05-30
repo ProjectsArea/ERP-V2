@@ -1,0 +1,2 @@
+- All changes from `franchise` and `projects` must be merged into `master`.
+- `master` will then be merged into `dev` periodically.
