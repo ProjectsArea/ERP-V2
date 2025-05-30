@@ -8,11 +8,17 @@ const JoinedAdmission = () => {
   const [error, setError] = useState(null);
   const [selectedAdmission, setSelectedAdmission] = useState(null);
   const [popupData, setPopupData] = useState({
+    projectId: '',
     completedPercentage: '',
     supportRequired: '',
     anyProblems: '',
     estimatedDateToComplete: '',
+    dockerPullLink: '',
+    dockerRunCommand: '',
+    githubLink: '',
+    documentationLink: '',
   });
+
   const [viewDetailsPopup, setViewDetailsPopup] = useState(null);
   const [filters, setFilters] = useState({
     projectCategory: '',
@@ -21,6 +27,7 @@ const JoinedAdmission = () => {
     toDate: '',
     searchQuery: '',
   });
+
   const api = process.env.REACT_APP_API;
 
   useEffect(() => {
@@ -39,7 +46,6 @@ const JoinedAdmission = () => {
         setLoading(false);
       }
     };
-
     fetchAdmissions();
   }, [api]);
 
@@ -51,6 +57,10 @@ const JoinedAdmission = () => {
       supportRequired: admission.supportRequired || '',
       anyProblems: admission.anyProblems || '',
       estimatedDateToComplete: admission.estimatedDateToComplete || '',
+      dockerPullLink: admission.dockerPullLink || '',
+      dockerRunCommand: admission.dockerRunCommand || '',
+      githubLink: admission.githubLink || '',
+      documentationLink: admission.documentationLink || '',
     });
   };
 
@@ -60,7 +70,6 @@ const JoinedAdmission = () => {
       if (response.ok) {
         const data = await response.json();
         setViewDetailsPopup(data.status);
-        console.log(data)
       } else {
         setError('Failed to fetch project status details');
       }
@@ -76,49 +85,53 @@ const JoinedAdmission = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setPopupData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setPopupData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSave = async () => {
     try {
+      const statusData = {
+        projectId: popupData.projectId,
+        completedPercentage: parseInt(popupData.completedPercentage),
+        supportRequired: popupData.supportRequired,
+        anyProblems: popupData.anyProblems,
+        estimatedDateToComplete: popupData.estimatedDateToComplete,
+        date: new Date().toISOString(),
+        dockerPullLink: popupData.dockerPullLink?.replace(/^'|'$/g, '') || '',
+        dockerRunCommand: popupData.dockerRunCommand?.replace(/^'|'$/g, '') || '',
+        githubLink: popupData.githubLink?.replace(/^'|'$/g, '') || '',
+        documentationLink: popupData.documentationLink?.replace(/^'|'$/g, '') || '',
+      };
+
       const response = await fetch(`${api}/project-status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
-        body: JSON.stringify(popupData),
+        body: JSON.stringify(statusData),
       });
 
       if (response.ok) {
-        const updatedAdmission = await response.json();
-        setAdmissions((prevAdmissions) =>
-          prevAdmissions.map((admission) =>
-            admission._id === updatedAdmission._id ? updatedAdmission : admission
-          )
-        );
+        const data = await response.json();
+        alert('Project status updated successfully!');
         handleClosePopup();
       } else {
-        setError('Failed to update project admission');
+        const errorData = await response.json();
+        setError(`Failed to update project status: ${errorData.message || 'Unknown error'}`);
       }
     } catch (error) {
-      setError('An error occurred while updating project admission');
+      setError('An error occurred while updating project status');
     }
   };
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value,
-    }));
+    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
   };
 
   const filteredAdmissions = admissions.filter((admission) => {
     const { projectCategory, guide, fromDate, toDate, searchQuery } = filters;
-
     return (
       (projectCategory === '' || admission.projectCategory === projectCategory) &&
       (guide === '' || admission.guide1.toLowerCase() === guide.toLowerCase() || admission.guide2.toLowerCase() === guide.toLowerCase()) &&
@@ -128,14 +141,8 @@ const JoinedAdmission = () => {
     );
   });
 
-  if (loading) {
-    return <p className="project-admission-loading">Loading...</p>;
-  }
-
-  if (error) {
-    return <p className="project-admission-error">{error}</p>;
-  }
-
+  if (loading) return <p className="project-admission-loading">Loading...</p>;
+  if (error) return <p className="project-admission-error">{error}</p>;
 
   return (
     <div className="project-admission-container">
@@ -144,20 +151,8 @@ const JoinedAdmission = () => {
         <p className="project-admission-count">Total Projects: {filteredAdmissions.length}</p>
       </div>
       <div className="project-admission-filters">
-        <input
-          type="text"
-          name="searchQuery"
-          placeholder="Search by Project Title"
-          value={filters.searchQuery}
-          onChange={handleFilterChange}
-          className="filter-input"
-        />
-        <select
-          name="projectCategory"
-          value={filters.projectCategory}
-          onChange={handleFilterChange}
-          className="filter-select"
-        >
+        <input type="text" name="searchQuery" placeholder="Search by Project Title" value={filters.searchQuery} onChange={handleFilterChange} className="filter-input" />
+        <select name="projectCategory" value={filters.projectCategory} onChange={handleFilterChange} className="filter-select">
           <option value="">All Categories</option>
           <option value="Blockchain">Blockchain</option>
           <option value="Web Designing">Web Designing</option>
@@ -170,35 +165,19 @@ const JoinedAdmission = () => {
           <option value="IoT">IoT</option>
           <option value="Android">Android</option>
         </select>
-        <select
-          name="guide"
-          value={filters.guide}
-          onChange={handleFilterChange}
-          className="filter-select"
-        >
+        <select name="guide" value={filters.guide} onChange={handleFilterChange} className="filter-select">
           <option value="">All Guides</option>
-          <option value = "vijay">Vijay</option>
+          <option value="vijay">Vijay</option>
           <option value="deepak">Deepak</option>
-          <option value = "haribabu">Hari Babu</option>
-          <option value = "srikanth">Srikanth</option>
-          <option value = "saswith">Saswith</option>
-          <option value = "saswith">DurgaPrasad</option>
+          <option value="haribabu">Hari Babu</option>
+          <option value="srikanth">Srikanth</option>
+          <option value="saswith">Saswith</option>
+          <option value="durgaprasad">DurgaPrasad</option>
         </select>
-        <input
-          type="date"
-          name="fromDate"
-          value={filters.fromDate}
-          onChange={handleFilterChange}
-          className="filter-input"
-        />
-        <input
-          type="date"
-          name="toDate"
-          value={filters.toDate}
-          onChange={handleFilterChange}
-          className="filter-input"
-        />
+        <input type="date" name="fromDate" value={filters.fromDate} onChange={handleFilterChange} className="filter-input" />
+        <input type="date" name="toDate" value={filters.toDate} onChange={handleFilterChange} className="filter-input" />
       </div>
+
       {filteredAdmissions.length === 0 ? (
         <p className="project-admission-no-data">NO DATA</p>
       ) : (
@@ -242,64 +221,64 @@ const JoinedAdmission = () => {
           </tbody>
         </table>
       )}
+
       {selectedAdmission && (
         <div className="project-admission-popup">
           <div className="project-admission-popup-content">
             <h2>Update Project Admission</h2>
-            <label>
-              Completed Percentage:
-              <input
-                type="number"
-                name="completedPercentage"
-                value={popupData.completedPercentage}
-                onChange={handleChange}
-              />
+            <label>Completed Percentage:
+              <input type="number" name="completedPercentage" value={popupData.completedPercentage} onChange={handleChange} />
             </label>
-            <label>
-              Remarks:
-              <textarea
-                name="supportRequired"
-                value={popupData.supportRequired}
-                onChange={handleChange}
-              />
+            <label>Remarks:
+              <textarea name="supportRequired" value={popupData.supportRequired} onChange={handleChange} />
             </label>
-            <label>
-              Any Problems:
-              <textarea
-                name="anyProblems"
-                value={popupData.anyProblems}
-                onChange={handleChange}
-              />
+            <label>Any Problems:
+              <textarea name="anyProblems" value={popupData.anyProblems} onChange={handleChange} />
             </label>
-            <label>
-              Estimated Date to Complete:
-              <input
-                type="date"
-                name="estimatedDateToComplete"
-                value={popupData.estimatedDateToComplete}
-                onChange={handleChange}
-              />
+            <label>Estimated Date to Complete:
+              <input type="date" name="estimatedDateToComplete" value={popupData.estimatedDateToComplete} onChange={handleChange} />
             </label>
-            <button className="project-admission-popup-close" onClick={handleClosePopup}  style={{margin:"10px"}}>Close</button>
+            <div className="form-group">
+              <label>Docker Pull Link:
+                <input type="text" name="dockerPullLink" value={popupData.dockerPullLink} onChange={handleChange} placeholder="docker pull your-image" />
+              </label>
+            </div>
+            <div className="form-group">
+              <label>Docker Run Command:
+                <input type="text" name="dockerRunCommand" value={popupData.dockerRunCommand} onChange={handleChange} placeholder="docker run your-container" />
+              </label>
+            </div>
+            <div className="form-group">
+              <label>GitHub Repository Link:
+                <input type="text" name="githubLink" value={popupData.githubLink} onChange={handleChange} placeholder="https://github.com/your-repo" />
+              </label>
+            </div>
+            <div className="form-group">
+              <label>Documentation Link:
+                <input type="text" name="documentationLink" value={popupData.documentationLink} onChange={handleChange} placeholder="https://your-docs.com" />
+              </label>
+            </div>
+            <button className="project-admission-popup-close" onClick={handleClosePopup} style={{ margin: "10px" }}>Close</button>
             <button onClick={handleSave}>Save</button>
           </div>
         </div>
       )}
+
       {viewDetailsPopup && (
         <div className="chrono-popup">
           <div className="chrono-popup-content">
-            <Chrono
-              items={viewDetailsPopup}
-              mode="VERTICAL"
-              theme={{ primary: 'blue', secondary: 'yellow' }}
-            >
+            <Chrono items={viewDetailsPopup} mode="VERTICAL" theme={{ primary: 'blue', secondary: 'yellow' }}>
               {viewDetailsPopup.map((status, index) => (
-            <div key={index}>
-              <p><strong>Completed Percentage:</strong> {status.completedPercentage}</p>
-              <p><strong>Remarks:</strong> {status.supportRequired}</p>
-              <p><strong>Problems:</strong> {status.anyProblems}</p>
-            </div>
-          ))}
+                <div key={index}>
+                  <p><strong>Completed Percentage:</strong> {status.completedPercentage}</p>
+                  <p><strong>Remarks:</strong> {status.supportRequired}</p>
+                  <p><strong>Problems:</strong> {status.anyProblems}</p>
+                  <p><strong>dockerPullLink:</strong> {status.dockerPullLink}</p>
+                  <p><strong>dockerRunCommand:</strong> {status.dockerRunCommand}</p>
+                  <p><strong>githubLink:</strong> {status.githubLink}</p>
+                  <p><strong>documentationLink:</strong> {status.documentationLink}</p>
+                </div>
+              ))}
             </Chrono>
             <button className="chrono-popup-close" onClick={handleClosePopup}>Close</button>
           </div>

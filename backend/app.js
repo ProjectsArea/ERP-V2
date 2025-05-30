@@ -59,9 +59,13 @@ const upload = multer({
 
 // replace connection
 
-mongoose.connect('mongodb+srv://aarthiraju23527:1YuSKQdY8MrrzSgI@datapro.jhmd35k.mongodb.net/?retryWrites=true&w=majority&appName=DATAPRO')
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error(err));
+mongoose.connect('mongodb+srv://dataproDev:MongoDB1990@erp.ad9zoqp.mongodb.net/ERP')
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error(err));
+
+// mongoose.connect('mongodb+srv://aarthiraju23527:1YuSKQdY8MrrzSgI@datapro.jhmd35k.mongodb.net/?retryWrites=true&w=majority&appName=DATAPRO')
+//   .then(() => console.log('MongoDB connected'))
+//   .catch(err => console.error(err));
 
 
 const authenticateToken = (req, res, next) => {
@@ -926,18 +930,111 @@ app.get('/project-admissions', async (req, res) => {
 });
 
 app.put('/project-status', async (req, res) => {
-  const { projectId, completedPercentage, supportRequired, anyProblems, estimatedDateToComplete } = req.body;
-  console.log(req.body)
+
+  const {
+    projectId,
+    completedPercentage,
+    supportRequired,
+    anyProblems,
+    estimatedDateToComplete,
+    date,
+    dockerPullLink,
+    dockerRunCommand,
+    githubLink,
+    documentationLink
+  } = req.body;
+
+  console.log('Received data:', req.body);
+
 
   if (
+    !projectId ||
     typeof projectId !== 'string' ||
     isNaN(Number(completedPercentage)) ||
-    typeof supportRequired !== 'string' ||
-    typeof anyProblems !== 'string' ||
     !estimatedDateToComplete
+    !supportRequired ||
+    !anyProblems ||
+    !estimatedDateToComplete ||
+    !date
   ) {
     return res.status(400).json({ error: 'Invalid input data' });
   }
+
+  try {
+    // Create status object with all fields
+    const status = {
+      completedPercentage: Number(completedPercentage),
+      supportRequired: supportRequired.trim(),
+      anyProblems: anyProblems.trim(),
+      estimatedDateToComplete: new Date(estimatedDateToComplete),
+      date: new Date(date),
+      dockerPullLink: dockerPullLink?.trim() || '',
+      dockerRunCommand: dockerRunCommand?.trim() || '',
+      githubLink: githubLink?.trim() || '',
+      documentationLink: documentationLink?.trim() || ''
+    };
+
+    console.log('Formatted status object:', status);
+
+    // Find existing project or create new one
+    let project = await ProjectStatus.findOne({ projectId });
+
+    if (project) {
+      // Add new status to existing project
+      project.statusList.push(status);
+      const savedProject = await project.save();
+      console.log('Updated existing project:', savedProject);
+      
+      if (!savedProject) {
+        throw new Error('Failed to save project');
+      }
+    } else {
+      // Create new project with status
+      project = new ProjectStatus({
+        projectId,
+        statusList: [status]
+      });
+      const savedProject = await project.save();
+      console.log('Created new project:', savedProject);
+      
+      if (!savedProject) {
+        throw new Error('Failed to create new project');
+      }
+    }
+
+    // Verify the data was saved by fetching it again
+    const updatedProject = await ProjectStatus.findOne({ projectId });
+    console.log('Final project state:', updatedProject);
+
+    if (!updatedProject) {
+      throw new Error('Failed to verify saved data');
+    }
+
+    // Verify the latest status contains all fields
+    const latestStatus = updatedProject.statusList[updatedProject.statusList.length - 1];
+    console.log('Latest status:', latestStatus);
+
+    if (!latestStatus || !latestStatus.completedPercentage || !latestStatus.supportRequired) {
+      throw new Error('Status data is incomplete');
+    }
+
+    res.status(200).json({ 
+      message: 'Status added successfully', 
+      project: updatedProject,
+      latestStatus
+    });
+  } catch (error) {
+    console.error('Error saving project status:', error);
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ error: error.message });
+    }
+    if (error.name === 'MongoError') {
+      return res.status(500).json({ error: 'Database error: ' + error.message });
+    }
+    res.status(500).json({ error: 'Server error: ' + error.message });
+  }
+});
+
 
   const status = {
     completedPercentage: Number(completedPercentage),
@@ -947,25 +1044,81 @@ app.put('/project-status', async (req, res) => {
   };
 
   try {
-    const project = await ProjectStatus.findOne({ projectId });
+    // Create status object with all fields
+    const status = {
+      completedPercentage: Number(completedPercentage),
+      supportRequired: supportRequired.trim(),
+      anyProblems: anyProblems.trim(),
+      estimatedDateToComplete: new Date(estimatedDateToComplete),
+      date: new Date(date),
+      dockerPullLink: dockerPullLink?.trim() || '',
+      dockerRunCommand: dockerRunCommand?.trim() || '',
+      githubLink: githubLink?.trim() || '',
+      documentationLink: documentationLink?.trim() || ''
+    };
+
+    console.log('Formatted status object:', status);
+
+    // Find existing project or create new one
+    let project = await ProjectStatus.findOne({ projectId });
+
     if (project) {
-      // Project exists, add new status to statusList
+      // Add new status to existing project
       project.statusList.push(status);
-      await project.save();
+      const savedProject = await project.save();
+      console.log('Updated existing project:', savedProject);
+      
+      if (!savedProject) {
+        throw new Error('Failed to save project');
+      }
     } else {
-      // Project does not exist, create a new one
-      const newProject = new ProjectStatus({
+      // Create new project with status
+      project = new ProjectStatus({
         projectId,
         statusList: [status]
       });
-      await newProject.save();
+      const savedProject = await project.save();
+      console.log('Created new project:', savedProject);
+      
+      if (!savedProject) {
+        throw new Error('Failed to create new project');
+      }
     }
-    res.status(200).json({ message: 'Status added successfully' });
+
+    // Verify the data was saved by fetching it again
+    const updatedProject = await ProjectStatus.findOne({ projectId });
+    console.log('Final project state:', updatedProject);
+
+    if (!updatedProject) {
+      throw new Error('Failed to verify saved data');
+    }
+
+    // Verify the latest status contains all fields
+    const latestStatus = updatedProject.statusList[updatedProject.statusList.length - 1];
+    console.log('Latest status:', latestStatus);
+
+    if (!latestStatus || !latestStatus.completedPercentage || !latestStatus.supportRequired) {
+      throw new Error('Status data is incomplete');
+    }
+
+    res.status(200).json({ 
+      message: 'Status added successfully', 
+      project: updatedProject,
+      latestStatus
+    });
   } catch (error) {
-    console.error('Error adding status:', error);
-    res.status(500).json({ error: 'An error occurred while adding status' });
+    console.error('Error saving project status:', error);
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ error: error.message });
+    }
+    if (error.name === 'MongoError') {
+      return res.status(500).json({ error: 'Database error: ' + error.message });
+    }
+    res.status(500).json({ error: 'Server error: ' + error.message });
   }
 });
+
+
 
 app.get("/project-status/:id", async (req, res) => {
   const { id } = req.params;
