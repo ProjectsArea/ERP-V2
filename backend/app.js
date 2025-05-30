@@ -54,7 +54,8 @@ const upload = multer({
 
 // replace connection
 
-mongoose.connect('mongodb+srv://aarthiraju23527:1YuSKQdY8MrrzSgI@datapro.jhmd35k.mongodb.net/?retryWrites=true&w=majority&appName=DATAPRO')
+
+mongoose.connect('mongodb+srv://dataproDev:MongoDB1990@erp.ad9zoqp.mongodb.net/ERP')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
