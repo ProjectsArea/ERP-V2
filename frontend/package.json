@@ -2,14 +2,12 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://erpv4.frontend.ijernd.com",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-<<<<<<< HEAD
     "axios": "^1.9.0",
-=======
->>>>>>> 9d671ee4ee53baa0347d466e712331f353ed920d
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.3",
@@ -25,11 +23,8 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
-<<<<<<< HEAD
     "react-toastify": "^11.0.5",
     "recharts": "^2.15.3",
-=======
->>>>>>> 9d671ee4ee53baa0347d466e712331f353ed920d
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
   },
