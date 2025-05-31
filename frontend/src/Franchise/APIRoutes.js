@@ -34,3 +34,4 @@ export const getRejectionsRoute = `${host}/franchise/accounts/getRejections`
 // ------------- franchise store routes ------------------------
 export const getStoreDataRoute = `${host}/franchise/store/getStoreData`
 export const updateStoreDataRoute = `${host}/franchise/store/updateStoreData`
+export const addStoreDataRoute = `${host}/franchise/store/addStoreData`

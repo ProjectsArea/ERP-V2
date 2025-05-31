@@ -1,30 +1,40 @@
 const mongoose = require('mongoose');
 
-const storeDataSchema = new mongoose.Schema({
-    Jan: Number,
-    Feb: Number,
-    Mar: Number
-}, { _id: false });
-
 const centerReportSchema = new mongoose.Schema({
     CenterName: {
         type: String,
         required: true
     },
+    BranchHeadName: {
+        type: String,
+        required: true
+    },
+    ContactNumber: {
+        type: String,
+        required: true
+    },
+    FranchiseName: {
+        type: String,
+        required: true
+    },
     MonthWiseRevenueGenerated: {
-        type: storeDataSchema,
+        type: Map,
+        of: Number,
         required: true
     },
     MonthWiseAmountCollected: {
-        type: storeDataSchema,
+        type: Map,
+        of: Number,
         required: true
     },
     RoyaltyMonthWise: {
-        type: storeDataSchema,
+        type: Map,
+        of: Number,
         required: true
     },
     AmountReceivedMonthWise: {
-        type: storeDataSchema,
+        type: Map,
+        of: Number,
         required: true
     },
     TotalAmountDue: {
@@ -32,11 +42,11 @@ const centerReportSchema = new mongoose.Schema({
         required: true
     },
     CertificateRequestPerMonth: {
-        type: storeDataSchema,
+        type: Map,
+        of: Number,
         required: true
     }
 });
-
 
 const storeModel = mongoose.model("reports", centerReportSchema);
 
