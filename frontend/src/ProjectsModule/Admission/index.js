@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import './index.css';
 
-Modal.setAppElement('#root');
+if (typeof document !== 'undefined' && document.querySelector('#root')) {
+  Modal.setAppElement('#root');
+}
 
 const ProjectAdmission = () => {
   const [walkins, setWalkins] = useState([]);

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './index.css';
 
 function ProjectLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
- 
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('jwt_token');
     if (token) {
-      navigate("/cm-navbar/register-employee");
+      navigate("/project-navbar/enquiry");
     }
   }, [navigate]);
 
@@ -23,8 +23,23 @@ function ProjectLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(username === "Project@2024" && password === "Datapro@123$") {
-        navigate("/project-navbar/enquiry")
+    try {
+      const response = await axios.post('http://localhost:5000/project/login', {
+        username,
+        password
+      });
+
+      const { token } = response.data;
+
+      if (token) {
+        localStorage.setItem('jwt_token', token);
+        navigate("/project-navbar/enquiry");
+      } else {
+        alert("Login failed: Token not received.");
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      alert("Invalid credentials or server error");
     }
   };
 

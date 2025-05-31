@@ -49,8 +49,9 @@ const upload = multer({
 
 // replace connection
 
+let dbflag="false";
 mongoose.connect('mongodb+srv://dataproDev:MongoDB1990@erp.ad9zoqp.mongodb.net/ERP')
-.then(() => console.log('MongoDB connected'))
+.then(() => { dbflag="true"; console.log('MongoDB connected'); })
 .catch(err => console.error(err));
 
 
@@ -127,6 +128,31 @@ const formatDate = (date) => {
   const day = String(d.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
+
+app.get('/', async (req, res) => {
+  res.send('Welcome to the ERP API '+dbflag);
+});
+
+app.post('/project/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === 'Project@2024' && password === 'Datapro@123$') {
+    const token = jwt.sign({ username }, 'jwt-secret', { expiresIn: '1h' });
+    res.status(200).json({ token });
+  } else {
+    res.status(401).json({ message: 'Invalid credentials' });
+  }
+});
+app.post('/md-login',async (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === 'mdho' && password === 'Datapro@123$') {
+    const token = jwt.sign({ username }, 'jwt-secret', { expiresIn: '1h' });
+    res.status(200).json({ token });
+  } else {
+    res.status(401).json({ message: 'Invalid credentials' });
+  }
+});
 
 app.post('/enquiries',authenticateToken, async (req, res) => {
   try {
@@ -216,7 +242,9 @@ app.get('/student-details',authenticateToken,async (req, res) => {
   }
 });
 
-app.get('/enquiries',async (req, res) => {
+
+app.get('/enquiries',authenticateToken,async (req, res) => {
+
   try {
       const enquiries = await Enquiry.find({});
       res.status(200).json(enquiries);
@@ -224,7 +252,8 @@ app.get('/enquiries',async (req, res) => {
       res.status(500).json({ message: 'Error fetching enquiries', error: err });
   }
 });
-app.get('/enquiry/:id',async (req, res) => {
+app.get('/enquiry/:id',authenticateToken,async (req, res) => {
+
     const {id} = req.params
   try {
       const enquiry = await Enquiry.findById({_id:id});
@@ -326,7 +355,7 @@ app.get('/getDetails',authenticateToken,async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-app.get('/getDetails/:id', async (req, res) => {
+app.get('/getDetails/:id',authenticateToken, async (req, res) => {
   try {
     const admission = await Admission.findById(req.params.id);
     if (!admission) {
@@ -385,12 +414,27 @@ app.post('/admissions',authenticateToken,upload.single('image'), async (req, res
 });
 
 
-app.get('/admissions', async (req, res) => {
+
+app.get('/admissions',authenticateToken, async (req, res) => {
   try {
-      const admission = await Admission.find({});
-      res.status(200).json(admission);
+    const admissions = await Admission.find({}).sort({ createdAt: -1 });
+    if (!admissions || admissions.length === 0) {
+      return res.status(404).json({ 
+        status: false,
+        message: 'No admissions found' 
+      });
+    }
+    res.status(200).json({
+      status: true,
+      data: admissions
+    });
   } catch (err) {
-      res.status(500).json({ message: 'Error fetching enquiries', error: err });
+    console.error('Error fetching admissions:', err);
+    res.status(500).json({ 
+      status: false,
+      message: 'Error fetching admissions',
+      error: err.message 
+    });
   }
 });
 
@@ -459,7 +503,7 @@ app.delete("/delete-employees/:id",async(req, res) => {
   }
 })
 
-app.get("/employees",async(req, res) => {
+app.get("/employees",authenticateToken,async(req, res) => {
   try{
     const employees = await Employee.find({})
     res.status(200).json({ employees });
@@ -898,7 +942,7 @@ app.post('/project-admissions', async (req, res) => {
   }
 });
 
-app.get('/project-admissions', async (req, res) => {
+app.get('/project-admissions',authenticateToken, async (req, res) => {
   try {
     const admissions = await ProjectAdmission.find();
     res.status(200).json(admissions);
