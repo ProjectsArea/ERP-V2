@@ -385,7 +385,7 @@ app.post('/admissions',authenticateToken,upload.single('image'), async (req, res
 });
 
 
-app.get('/admissions', async (req, res) => {
+app.get('/admissions', authenticateToken, async (req, res) => {
   try {
       const admission = await Admission.find({});
       res.status(200).json(admission);
