@@ -49,8 +49,9 @@ const upload = multer({
 
 // replace connection
 
+let dbflag="false";
 mongoose.connect('mongodb+srv://dataproDev:MongoDB1990@erp.ad9zoqp.mongodb.net/ERP')
-.then(() => console.log('MongoDB connected'))
+.then(() => { dbflag="true"; console.log('MongoDB connected'); })
 .catch(err => console.error(err));
 
 
@@ -127,6 +128,10 @@ const formatDate = (date) => {
   const day = String(d.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
+
+app.get('/', async (req, res) => {
+  res.send('Welcome to the ERP API '+dbflag);
+});
 
 app.post('/project/login', async (req, res) => {
   const { username, password } = req.body;
