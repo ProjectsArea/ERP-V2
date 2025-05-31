@@ -1,7 +1,7 @@
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
-PassengerAppRoot "/home/ijerucyz/erpv3.backend.ijernd.com"
+PassengerAppRoot "/home/ijerucyz/erpbackend.ijernd.com"
 PassengerBaseURI "/"
-PassengerNodejs "/home/ijerucyz/nodevenv/erpv3.backend.ijernd.com/20/bin/node"
+PassengerNodejs "/home/ijerucyz/nodevenv/erpbackend.ijernd.com/20/bin/node"
 PassengerAppType node
 PassengerStartupFile app.js
 # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
