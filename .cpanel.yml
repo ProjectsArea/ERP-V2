@@ -2,8 +2,8 @@
 deployment:
   tasks:
     # Set deployment paths for frontend and backend
-    - export BACKEND_PATH=/home/ijerucyz/erpv4.backend.ijernd.com
-    - export FRONTEND_PATH=/home/ijerucyz/erpv4.frontend.ijernd.com
+    - export BACKEND_PATH=/home/ijerucyz/erpbackend.ijernd.com
+    - export FRONTEND_PATH=/home/ijerucyz/erpfrontend.ijernd.com
 
     # Optional: include hidden files like .htaccess, .env, etc.
     - shopt -s dotglob
