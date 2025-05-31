@@ -148,6 +148,7 @@ app.post('/md-login',async (req, res) => {
     res.status(401).json({ message: 'Invalid credentials' });
   }
 });
+
 app.post('/enquiries',authenticateToken, async (req, res) => {
   try {
     const {
@@ -236,7 +237,9 @@ app.get('/student-details',authenticateToken,async (req, res) => {
   }
 });
 
+
 app.get('/enquiries',authenticateToken,async (req, res) => {
+
   try {
       const enquiries = await Enquiry.find({});
       res.status(200).json(enquiries);
@@ -245,6 +248,7 @@ app.get('/enquiries',authenticateToken,async (req, res) => {
   }
 });
 app.get('/enquiry/:id',authenticateToken,async (req, res) => {
+
     const {id} = req.params
   try {
       const enquiry = await Enquiry.findById({_id:id});
@@ -403,6 +407,7 @@ app.post('/admissions',authenticateToken,upload.single('image'), async (req, res
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
+
 
 
 app.get('/admissions',authenticateToken, async (req, res) => {
