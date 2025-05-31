@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import './index.css';
 
-if (typeof document !== 'undefined') {
+if (typeof document !== 'undefined' && document.querySelector('#root')) {
   Modal.setAppElement('#root');
 }
 
