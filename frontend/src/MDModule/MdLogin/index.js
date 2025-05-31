@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './index.css';
+import './index.css'; // make sure this file contains your styles
 
 function MdLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
- 
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('jwt_token');
     if (token) {
-      navigate("/cm-navbar/register-employee");
+      navigate("/md-navbar/centers");
     }
   }, [navigate]);
 
@@ -23,34 +22,30 @@ function MdLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(username === "mdho" && password === "Datapro@123$") {
-        navigate("/md-navbar/centers")
+    const data = { username, password };
+
+    try {
+      const response = await fetch('http://localhost:5000/md-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("jwt_token", result.token);
+        alert("Login Successful");
+        navigate("/md-navbar/centers", { replace: true });
+      } else {
+        alert(result.message || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Something went wrong. Please try again.');
     }
-    // const center = localStorage.getItem("center");
-
-    // const data = { username, password,};
-
-    // try {
-    //   const response = await fetch(`${api}/manager-login`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data),
-    //   });
-
-    //   const result = await response.json();
-
-    //   if (response.ok) {
-    //     localStorage.setItem("jwt_token", result.token);
-    //     navigate("/cm-navbar/register-employee", { replace: true });
-    //     alert("Login Successfully");
-    //   } else {
-    //     alert('Login failed');
-    //   }
-    // } catch (error) {
-    //   console.error('Error:', error);
-    // }
   };
 
   return (
